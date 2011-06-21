@@ -1,0 +1,14 @@
+This is a python module to deal with rotations.
+
+There are many ways to represent and apply rotations. I have my favorite, but
+I often have to work with others. This is my effort to simplify translating
+between representations and provide a few fairly efficient tools for applying
+rotations to arbitrary data. 
+
+This is intended to work primarily with numpy, but I would be open to more 
+general implementation and packaging.
+
+M J Stanway
+
+ps- This is also my first git repo, so I'm using it to learn that system 
+    as well.
