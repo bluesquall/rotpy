@@ -18,11 +18,12 @@ import numpy as np
 
 _axes_string_to_tuple = {
     'xyz': (1,2,3), 'ijk': (1,2,3),
+    'zyx': (3,2,1), 'kji': (3,2,1),
 }
 
 # default should be SNAME HPR order
 # use intrinsic/extrinsic flag to differentiate body/fixed axes
-def to_matrix(angles, axes = (1, 2, 3), intrinsic=True,):
+def to_matrix(angles, axes = (3, 2, 1), intrinsic=True,):
     if intrinsic:
         return _to_matrix_intrinsic(angles, axes) 
         # this allows me to avoid evaluating the if statement (speedup?)
@@ -31,7 +32,7 @@ def to_matrix(angles, axes = (1, 2, 3), intrinsic=True,):
         raise NotImplementedError
 
     
-def _to_matrix_intrinsic(angles, axes=(1,2,3)):
+def _to_matrix_intrinsic(angles, axes = (3, 2, 1)):
     
     Rlist = [_to_matrix_about_elemental_axis(*aa) 
              for aa in reversed(zip(angles, axes))]
