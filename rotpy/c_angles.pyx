@@ -20,9 +20,9 @@ cdef extern from "math.h":
 #TODO this top-level function should handle any change from axes strings to tuples
 
 def _to_matrix_intrinsic(ndarray[double] angles, axes = (3, 2, 1)):
-    return reduce(np.dot [_to_matrix_about_elemental_axis(*aa)
-                          for aa in reversed(zip(angles, axes))])
-    # XXX does the list comprehension agtually gain me anything in pyrex?
+    return reduce(np.dot, [_to_matrix_about_elemental_axis(*aa)
+                           for aa in reversed(zip(angles, axes))])
+    # XXX does the list comprehension actually gain me anything in pyrex?
 
 
 def _to_matrix_about_elemental_axis(double angle, int axis):
