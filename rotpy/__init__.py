@@ -13,4 +13,8 @@ try:
 except ImportError:
     import angles
 
+try: 
+    import c_utility as utility
+except ImportError: 
+    import utility
 
