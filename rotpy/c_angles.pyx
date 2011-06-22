@@ -12,7 +12,7 @@ cimport cython
 
 cimport numpy as np
 
-cdef extern from "math.h"
+cdef extern from "math.h":
     double sin(double)
     double cos(double)
 
