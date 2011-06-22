@@ -33,17 +33,17 @@ def _to_matrix_about_elemental_axis(double angle, int axis):
 
 
 def _to_matrix_about_i(double angle):
-    cdef double s = sin(angle), cdef double c = cos(angle)
+    cdef double s = sin(angle), c = cos(angle)
     return np.array([[1, 0, 0],[0, c, s],[0, -s, c]]) # e.g. roll
 
 
 def _to_matrix_about_j(double angle):
-    cdef double s = sin(angle), cdef double c = cos(angle)
+    cdef double s = sin(angle), c = cos(angle)
     return np.array([[c, 0, -s],[0, 1, 0],[s, 0, c]]) # e.g. pitch
 
 
 def _to_matrix_about_k(double angle):
-    cdef double s = sin(angle), cdef double c = cos(angle)
+    cdef double s = sin(angle), c = cos(angle)
     return np.array([[c, s, 0],[-s, c, 0],[0, 0, 1]]) # e.g. heading
 
 
