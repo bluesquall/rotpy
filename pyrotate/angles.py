@@ -43,8 +43,10 @@ def _to_matrix_intrinsic_old(angles, axes=(1,2,3)):
         # e.g. forward-port-mast to North-West-Up
 
 def _to_matrix_intrinsic(angles, axes=(1,2,3)):
-    Rlist = [_to_matrix_about_elemental_axis(*aa) for aa in zip(angles, axes)]
-    Rlist.reverse() #XXX need to reverse the Rlist to apply in correct order
+    
+    Rlist = [_to_matrix_about_elemental_axis(*aa) 
+             for aa in reversed(zip(angles, axes))]
+#    Rlist.reverse() #XXX need to reverse the Rlist to apply in correct order
     return reduce(np.dot, Rlist)
 
 #TODO better terminology than elemental_axis
