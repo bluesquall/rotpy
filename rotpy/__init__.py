@@ -1,6 +1,6 @@
 """
-pyrotate
-========
+rotpy
+=====
 
 Python module for handling rotations.
 

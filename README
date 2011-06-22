@@ -1,4 +1,4 @@
-This is a python module to deal with rotations.
+This is a python package to deal with rotations.
 
 There are many ways to represent and apply rotations. I have my favorite, but
 I often have to work with others. This is my effort to simplify translating
@@ -9,6 +9,11 @@ This is intended to work primarily with numpy, but I would be open to more
 general implementation and packaging.
 
 M J Stanway
+
+This package is released under the MIT License. 
+See the included LICENSE file or go to:
+    http://www.opensource.org/licenses/mit-license.php
+for more details.
 
 ps- This is also my first git repo, so I'm using it to learn that system 
     as well.
