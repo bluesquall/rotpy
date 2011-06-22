@@ -16,22 +16,22 @@ the convention you use!
 
 import numpy as np
 
-_order_string_to_tuple = {
+_axes_string_to_tuple = {
     'xyz': (1,2,3), 'ijk': (1,2,3),
 }
 
 # default should be SNAME HPR order
 # use intrinsic/extrinsic flag to differentiate body/fixed axes
-def to_matrix(angles, order='xyz', intrinsic=True,):
+def to_matrix(angles, axes = (1, 2, 3), intrinsic=True,):
     if intrinsic:
-        _to_matrix_intrinsic(angles, order) 
+        return _to_matrix_intrinsic(angles, axes) 
         # this allows me to avoid evaluating the if statement (speedup?)
 # XXX if you are really looking for the speedup, you should use the c library
     else:
         raise NotImplementedError
 
     
-def _to_matrix_intrinsic_old(angles, order=(1,2,3)):
+def _to_matrix_intrinsic_old(angles, axes=(1,2,3)):
     #TODO confirm that this is actually the formulation for intrinsic
     s1, s2, s3 = np.sin(angles)
     c1, c2, c3 = np.cos(angles)
@@ -42,19 +42,19 @@ def _to_matrix_intrinsic_old(angles, order=(1,2,3)):
     return reduce(np.dot, [R3, R2, R1])
         # e.g. forward-port-mast to North-West-Up
 
-def _to_matrix_intrinsic(angles, order=(1,2,3)):
-    try: aa = zip(angles, order)
-    Rlist = [_to_matrix_about_elemental_axis(ang, ax) for ang, ax in aa]
-    return reduce(np.dot, Rlist) 
-
+def _to_matrix_intrinsic(angles, axes=(1,2,3)):
+    Rlist = [_to_matrix_about_elemental_axis(*aa) for aa in zip(angles, axes)]
+    Rlist.reverse() #XXX need to reverse the Rlist to apply in correct order
+    return reduce(np.dot, Rlist)
 
 #TODO better terminology than elemental_axis
 def _to_matrix_about_elemental_axis(angle, axis):
     #TODO pythonic implementation below
-    if axis == 1: return _to_matrix_about_i(angle)
-    elif axis == 2: return _to_matrix_about_j(angle)
-    elif axis == 3: return _to_matrix_about_k(angle)
-    else: pass #TODO raise an error
+    if axis in [1, 'i', 'x']: return _to_matrix_about_i(angle)
+    elif axis in [2, 'j', 'y']: return _to_matrix_about_j(angle)
+    elif axis in [3, 'k', 'z']: return _to_matrix_about_k(angle)
+    else: print 'axis ', axis, 'unknown'
+        #TODO raise an error
 
 
 def _to_matrix_about_i(angle):
