@@ -6,11 +6,11 @@ rotpy.c_utility
 
 """
 
-#import numpy as np
-from numpyt import (ndarray, empty)
+import numpy as np
+#from numpy import ndarray, empty
 cimport cython
-# cimport numpy as np
-from numpy cimport (ndarray, empty)
+cimport numpy as np
+# from numpy cimport ndarray, empty
 #TODO determine if/when from-import is faster
 
 #cython: boundscheck=False
@@ -35,7 +35,7 @@ def ixsea_rph_to_sname_Rvn(rph):
     """
     cdef double sr = sin(rph[0]), sp = sin(rph[1]), sh = sin(rph[2])
     cdef double cr = cos(rph[0]), cp = cos(rph[1]), ch = cos(rph[2])
-    cdef ndarray[double, ndim=2, mode='c'] R = empty((3, 3))
+    cdef np.ndarray[double, ndim=2, mode='c'] R = np.empty((3, 3))
 
     #XXX as calculated in sage notebook `IXSEA to SNAME'
     R[0,0] = ch*cp
