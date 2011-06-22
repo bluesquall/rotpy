@@ -5,7 +5,10 @@ pyrotate.c_angles
 
 
 See c_utility.pyx for functions to translate directly for specific conventions.
+
 """
+import numpy as np
+
 cimport cython
 #@cython.boundscheck(False) # would prevent segfault by accessing out-of-bounds
 #@cython.wraparound(False)
@@ -19,7 +22,7 @@ cdef extern from "math.h":
 #def to_matrix(ndarray[double] angles, axes = (3, 2, 1), intrinsic=True):
 #TODO this top-level function should handle any change from axes strings to tuples
 
-def _to_matrix_intrinsic(ndarray[double] angles, axes = (3, 2, 1)):
+def _to_matrix_intrinsic(np.ndarray[double] angles, axes = (3, 2, 1)):
     return reduce(np.dot, [_to_matrix_about_elemental_axis(*aa)
                            for aa in reversed(zip(angles, axes))])
     # XXX does the list comprehension actually gain me anything in pyrex?
