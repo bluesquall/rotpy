@@ -16,13 +16,13 @@ cdef extern from "math.h"
     double sin(double)
     double cos(double)
 
-#def to_matrix(ndarray[double] angles, order=(1,2,3), intrinsic=True):
+#def to_matrix(ndarray[double] angles, axes = (3, 2, 1), intrinsic=True):
+#TODO this top-level function should handle any change from axes strings to tuples
 
-def _to_matrix_intrinsic(ndarray[double] angles, order = (1,2,3)):
-    try: aa = zip(angles, order)
-    except Error, err: raise err
-    Rlist = [_to_matrix_about_elemental_axis(ang, ax) for ang, ax in aa]
-    return reduce(np.dot, Rlist)
+def _to_matrix_intrinsic(ndarray[double] angles, axes = (3, 2, 1)):
+    return reduce(np.dot [_to_matrix_about_elemental_axis(*aa)
+                          for aa in reversed(zip(angles, axes))])
+    # XXX does the list comprehension agtually gain me anything in pyrex?
 
 
 def _to_matrix_about_elemental_axis(double angle, int axis):
@@ -34,17 +34,17 @@ def _to_matrix_about_elemental_axis(double angle, int axis):
 
 def _to_matrix_about_i(double angle):
     cdef double s = sin(angle), cdef double c = cos(angle)
-    return np.array([[1, 0, 0],[0, c, -s],[0, s, c]]) # e.g. roll
+    return np.array([[1, 0, 0],[0, c, s],[0, -s, c]]) # e.g. roll
 
 
 def _to_matrix_about_j(double angle):
     cdef double s = sin(angle), cdef double c = cos(angle)
-    return np.array([[c, 0, s],[0, 1, 0],[-s, 0, c]]) # e.g. pitch
+    return np.array([[c, 0, -s],[0, 1, 0],[s, 0, c]]) # e.g. pitch
 
 
 def _to_matrix_about_k(double angle):
     cdef double s = sin(angle), cdef double c = cos(angle)
-    return np.array([[c, -s, 0],[s, c, 0],[0, 0, 1]]) # e.g. heading
+    return np.array([[c, s, 0],[-s, c, 0],[0, 0, 1]]) # e.g. heading
 
 
 def to_axis_angle(angles, order='xyz', intrinsic=True, ):
