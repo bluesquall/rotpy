@@ -10,8 +10,9 @@ See c_utility.pyx for functions to translate directly for specific conventions.
 import numpy as np
 
 cimport cython
-#@cython.boundscheck(False) # would prevent segfault by accessing out-of-bounds
-#@cython.wraparound(False)
+#cython: boundscheck = False 
+#   would prevent segfault by accessing out-of-bounds
+#cython: wraparound = False
 
 cimport numpy as np
 
