@@ -18,3 +18,5 @@ try:
 except ImportError: 
     import utility
 
+import random # TODO C alternative
+import estimate # TODO C alternative
