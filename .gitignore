@@ -1,0 +1,14 @@
+# ignore byte-compiled python
+*.pyc
+# ignore python installer egg directories
+*egg-info
+# ignore gedit swap files
+*~
+# ignore vim swap files
+*.sw[po]
+# ignore compiled object files and libraries
+*.o
+*.so
+*.a
+# ignore auto-generated c source files (from cython) 
+*.c
